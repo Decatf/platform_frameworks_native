@@ -175,6 +175,12 @@ void GLES20RenderEngine::setupLayerBlackedOut() {
     mState.setTexture(texture);
 }
 
+mat4 GLES20RenderEngine::setupColorTransform(const mat4& colorTransform) {
+    mat4 oldTransform = mState.getColorMatrix();
+    mState.setColorMatrix(colorTransform);
+    return oldTransform;
+}
+
 void GLES20RenderEngine::disableTexturing() {
     mState.disableTexture();
 }
