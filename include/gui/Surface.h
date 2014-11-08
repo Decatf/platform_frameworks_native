@@ -364,6 +364,10 @@ private:
     bool mSharedBufferHasBeenQueued;
 
     Condition mQueueBufferCondition;
+
+#ifdef SURFACE_SKIP_FIRST_DEQUEUE
+    bool                        mDequeuedOnce;
+#endif
 };
 
 namespace view {
