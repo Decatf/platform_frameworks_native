@@ -377,6 +377,10 @@ private:
     Condition mQueueBufferCondition;
 
     uint64_t mNextFrameNumber;
+
+#ifdef SURFACE_SKIP_FIRST_DEQUEUE
+    bool                        mDequeuedOnce;
+#endif
 };
 
 namespace view {
