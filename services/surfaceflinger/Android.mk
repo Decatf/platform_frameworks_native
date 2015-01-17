@@ -51,6 +51,11 @@ ifeq ($(TARGET_DISABLE_TRIPLE_BUFFERING),true)
 	LOCAL_CFLAGS += -DTARGET_DISABLE_TRIPLE_BUFFERING
 endif
 
+# Set "BOARD_EGL_NEEDS_FNW := true" in BoardConfig.mk for a description of this setting.
+ifeq ($(BOARD_EGL_NEEDS_FNW),true)
+   LOCAL_CFLAGS += -DEGL_NEEDS_FNW
+endif
+
 ifeq ($(TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS),true)
     LOCAL_CFLAGS += -DFORCE_HWC_COPY_FOR_VIRTUAL_DISPLAYS
 endif
