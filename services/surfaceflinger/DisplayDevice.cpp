@@ -27,10 +27,6 @@
 #include <ui/DisplayInfo.h>
 #include <ui/PixelFormat.h>
 
-#ifdef EGL_NEEDS_FNW
-#include <ui/FramebufferNativeWindow.h>
-#endif
-
 #include <gui/Surface.h>
 
 #include <hardware/gralloc.h>
@@ -81,11 +77,7 @@ DisplayDevice::DisplayDevice(
       mActiveConfig(0)
 {
     mNativeWindow = new Surface(producer, false);
-    #ifndef EGL_NEEDS_FNW
     ANativeWindow* const window = mNativeWindow.get();
-    #else
-    ANativeWindow* const window = new FramebufferNativeWindow();
-    #endif
 
     /*
      * Create our display's surface
@@ -418,11 +410,7 @@ void DisplayDevice::setDisplaySize(const int newWidth, const int newHeight) {
 
     mDisplaySurface->resizeBuffers(newWidth, newHeight);
 
-    #ifndef EGL_NEEDS_FNW
     ANativeWindow* const window = mNativeWindow.get();
-    #else
-    ANativeWindow* const window = new FramebufferNativeWindow();
-    #endif
     mSurface = eglCreateWindowSurface(mDisplay, mConfig, window, NULL);
     eglQuerySurface(mDisplay, mSurface, EGL_WIDTH,  &mDisplayWidth);
     eglQuerySurface(mDisplay, mSurface, EGL_HEIGHT, &mDisplayHeight);
