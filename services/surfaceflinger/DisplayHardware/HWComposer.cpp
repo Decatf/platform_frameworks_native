@@ -68,8 +68,7 @@ static bool hwcHasApiVersion(const hwc_composer_device_1_t* hwc,
 
 
 static bool hwcHasVsyncEvent(const hwc_composer_device_1_t* hwc) {
-    return hwcHasApiVersion(hwc, HWC_DEVICE_API_VERSION_0_3) ||
-        hwcHeaderVersion(hwc) >= 3;
+    return hwcHasApiVersion(hwc, HWC_DEVICE_API_VERSION_0_3);
 }
 
 static size_t sizeofHwcLayerList(const hwc_composer_device_1_t* hwc,
