@@ -392,6 +392,26 @@ static status_t selectEGLConfig(EGLDisplay display, EGLint format,
 
     err = selectConfigForAttribute(display, attribs,
             wantedAttribute, wantedAttributeValue, config);
+    if (!err)
+        goto done;
+
+    // maybe we failed because of EGL_FRAMEBUFFER_TARGET_ANDROID
+    ALOGW("no suitable EGLConfig found, trying without EGL_FRAMEBUFFER_TARGET_ANDROID");
+    attribs.remove(EGL_FRAMEBUFFER_TARGET_ANDROID);
+    err = selectConfigForAttribute(display, attribs,
+            wantedAttribute, wantedAttributeValue, config);
+    if (!err)
+        goto done;
+
+    // maybe we failed because of EGL_RECORDABLE_ANDROID
+    ALOGW("no suitable EGLConfig found, trying without EGL_RECORDABLE_ANDROID");
+    attribs.remove(EGL_RECORDABLE_ANDROID);
+    err = selectConfigForAttribute(display, attribs,
+            wantedAttribute, wantedAttributeValue, config);
+    if (!err)
+        goto done;
+
+done:
     if (err == NO_ERROR) {
         EGLint caveat;
         if (eglGetConfigAttrib(display, *config, EGL_CONFIG_CAVEAT, &caveat))
@@ -409,6 +429,7 @@ EGLConfig RenderEngine::chooseEglConfig(EGLDisplay display, int format) {
     err = selectEGLConfig(display, format, EGL_OPENGL_ES2_BIT, &config);
     if (err != NO_ERROR) {
         // If ES2 fails, try ES1
+        ALOGW("no suitable EGLConfig found, trying OpenGL ES 1");
         err = selectEGLConfig(display, format, EGL_OPENGL_ES_BIT, &config);
         if (err != NO_ERROR) {
             // still didn't work, probably because we're on the emulator...
