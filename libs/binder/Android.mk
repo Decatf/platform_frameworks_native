@@ -48,8 +48,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libbinder
 LOCAL_SHARED_LIBRARIES := liblog libcutils libutils
 
-LOCAL_CLANG := true
-LOCAL_SANITIZE := integer
+LOCAL_CLANG := false
+# LOCAL_SANITIZE := integer
 LOCAL_SRC_FILES := $(sources)
 ifneq ($(TARGET_USES_64_BIT_BINDER),true)
 ifneq ($(TARGET_IS_64_BIT),true)
@@ -60,6 +60,7 @@ LOCAL_CFLAGS += -Werror
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_CLANG := false
 LOCAL_MODULE := libbinder
 LOCAL_STATIC_LIBRARIES += libutils
 LOCAL_SRC_FILES := $(sources)
