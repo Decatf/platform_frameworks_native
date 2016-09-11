@@ -62,6 +62,8 @@ cc_library_shared {
         "-DDEBUG_ONLY_CODE=0",
 
         "-DSURFACE_SKIP_FIRST_DEQUEUE",
+
+        "-DICS_SENSOR_BLOB",
     ],
 
     product_variables: {
