@@ -42,8 +42,6 @@ LOCAL_CFLAGS += -Wno-unused-parameter
 
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)
 
-LOCAL_CLANG := false
-
 LOCAL_MODULE := libinputflinger
 
 include $(BUILD_SHARED_LIBRARY)
