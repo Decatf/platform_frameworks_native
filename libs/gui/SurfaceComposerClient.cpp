@@ -667,6 +667,25 @@ sp<SurfaceControl> SurfaceComposerClient::createSurface(
         const String8& name,
         uint32_t w,
         uint32_t h,
+        PixelFormat format)
+{
+    return createSurface(name, w, h, format, 0, nullptr, 0, 0);
+}
+
+sp<SurfaceControl> SurfaceComposerClient::createSurface(
+        const String8& name,
+        uint32_t w,
+        uint32_t h,
+        PixelFormat format,
+        uint32_t flags)
+{
+    return createSurface(name, w, h, format, flags, nullptr, 0, 0);
+}
+
+sp<SurfaceControl> SurfaceComposerClient::createSurface(
+        const String8& name,
+        uint32_t w,
+        uint32_t h,
         PixelFormat format,
         uint32_t flags,
         SurfaceControl* parent,
