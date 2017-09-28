@@ -64,6 +64,8 @@ cc_library_shared {
         "-DSURFACE_SKIP_FIRST_DEQUEUE",
 
         "-DICS_SENSOR_BLOB",
+
+        "-DUSE_MHEAP_SCREENSHOT",
     ],
 
     product_variables: {
