@@ -102,28 +102,13 @@ public:
     // ------------------------------------------------------------------------
     // surface creation / destruction
 
-    sp<SurfaceControl> createSurface(
-            const String8& name,// name of the surface
-            uint32_t w,         // width in pixel
-            uint32_t h,         // height in pixel
-            PixelFormat format // pixel-format desired
-    );
-
-    sp<SurfaceControl> createSurface(
-            const String8& name,// name of the surface
-            uint32_t w,         // width in pixel
-            uint32_t h,         // height in pixel
-            PixelFormat format, // pixel-format desired
-            uint32_t flags // usage flags
-    );
-
     //! Create a surface
     sp<SurfaceControl> createSurface(
             const String8& name,// name of the surface
             uint32_t w,         // width in pixel
             uint32_t h,         // height in pixel
             PixelFormat format, // pixel-format desired
-            uint32_t flags, // usage flags
+            uint32_t flags = 0, // usage flags
             SurfaceControl* parent = nullptr, // parent
             uint32_t windowType = 0, // from WindowManager.java (STATUS_BAR, INPUT_METHOD, etc.)
             uint32_t ownerUid = 0 // UID of the task
