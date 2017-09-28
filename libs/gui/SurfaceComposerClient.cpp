@@ -1022,6 +1022,21 @@ status_t ScreenshotClient::update(const sp<IBinder>& display,
         bool useIdentityTransform, uint32_t rotation) {
     sp<ISurfaceComposer> s(ComposerService::getComposerService());
     if (s == NULL) return NO_INIT;
+#ifdef USE_MHEAP_SCREENSHOT
+    int ret = -1;
+    mHeap = 0;
+    ret = s->captureScreen(display, &mHeap, &mBuffer.width, &mBuffer.height, sourceCrop,
+            reqWidth, reqHeight,
+            static_cast<uint32_t>(minLayerZ), static_cast<uint32_t>(maxLayerZ),
+            useIdentityTransform,
+            static_cast<ISurfaceComposer::Rotation>(rotation));
+    if (ret == NO_ERROR) {
+        mBuffer.format = PIXEL_FORMAT_RGBA_8888;
+        mBuffer.stride = mBuffer.width;
+        mBuffer.data = static_cast<uint8_t *>(mHeap->getBase());
+    }
+    return ret;
+#else
     sp<CpuConsumer> cpuConsumer = getCpuConsumer();
 
     if (mHaveBuffer) {
@@ -1041,6 +1056,7 @@ status_t ScreenshotClient::update(const sp<IBinder>& display,
         }
     }
     return err;
+#endif
 }
 
 status_t ScreenshotClient::update(const sp<IBinder>& display,
@@ -1067,12 +1083,16 @@ status_t ScreenshotClient::update(const sp<IBinder>& display, Rect sourceCrop,
 }
 
 void ScreenshotClient::release() {
+#ifdef USE_MHEAP_SCREENSHOT
+    mHeap = 0;
+#else
     if (mHaveBuffer) {
         mCpuConsumer->unlockBuffer(mBuffer);
         memset(&mBuffer, 0, sizeof(mBuffer));
         mHaveBuffer = false;
     }
     mCpuConsumer.clear();
+#endif
 }
 
 void const* ScreenshotClient::getPixels() const {
