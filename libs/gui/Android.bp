@@ -60,6 +60,8 @@ cc_library_shared {
         "-Wno-documentation",
 
         "-DDEBUG_ONLY_CODE=0",
+
+        "-DSURFACE_SKIP_FIRST_DEQUEUE",
     ],
 
     product_variables: {

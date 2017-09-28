@@ -438,6 +438,10 @@ protected:
     uint64_t mNextFrameNumber = 1;
     uint64_t mLastFrameNumber = 0;
 
+#ifdef SURFACE_SKIP_FIRST_DEQUEUE
+    bool                        mDequeuedOnce;
+#endif
+
     // Mutable because ANativeWindow::query needs this class const.
     mutable bool mQueriedSupportedTimestamps;
     mutable bool mFrameTimestampsSupportsPresent;
