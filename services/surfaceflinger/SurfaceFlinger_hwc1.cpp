@@ -3520,6 +3520,8 @@ status_t SurfaceFlinger::onTransact(
                     mDaltonizer.setMode(ColorBlindnessMode::Simulation);
                 }
                 mDaltonize = n > 0;
+                ALOGE("daltonize");
+                mDaltonize = 0;
                 invalidateHwcGeometry();
                 repaintEverything();
                 return NO_ERROR;
@@ -3542,6 +3544,8 @@ status_t SurfaceFlinger::onTransact(
                 }
                 invalidateHwcGeometry();
                 repaintEverything();
+                ALOGE("apply a color matrix");
+                mHasColorMatrix = 0;
                 return NO_ERROR;
             }
             // This is an experimental interface
