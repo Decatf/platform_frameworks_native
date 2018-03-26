@@ -54,7 +54,6 @@ public:
             int                 setupPolling(int* fd);
             status_t            handlePolledCommands();
             void                flushCommands();
-            void                flushIfNeeded();
 
             void                joinThreadPool(bool isMain = true);
             
@@ -127,8 +126,6 @@ private:
             uid_t               mCallingUid;
             int32_t             mStrictModePolicy;
             int32_t             mLastTransactionBinderFlags;
-            bool                mIsLooper;
-            bool                mMadeOutgoingTransaction;
 };
 
 }; // namespace android
