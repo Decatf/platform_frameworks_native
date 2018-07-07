@@ -62,8 +62,6 @@ cc_library_shared {
         "-DDEBUG_ONLY_CODE=0",
 
         "-DICS_SENSOR_BLOB",
-
-        "-DUSE_MHEAP_SCREENSHOT",
     ],
 
     product_variables: {

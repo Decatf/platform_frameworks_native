@@ -36,8 +36,6 @@
 #include <utils/SortedVector.h>
 #include <utils/threads.h>
 
-#include <binder/IMemory.h>
-
 #include <ui/FenceTime.h>
 #include <ui/PixelFormat.h>
 #include <math/mat4.h>
@@ -298,13 +296,6 @@ private:
             Rect sourceCrop, uint32_t reqWidth, uint32_t reqHeight,
             int32_t minLayerZ, int32_t maxLayerZ,
             bool useIdentityTransform, ISurfaceComposer::Rotation rotation);
-#ifdef USE_MHEAP_SCREENSHOT
-    virtual status_t captureScreen(const sp<IBinder>& display, sp<IMemoryHeap>* heap,
-            uint32_t* width, uint32_t* height,
-            Rect sourceCrop, uint32_t reqWidth, uint32_t reqHeight,
-            uint32_t minLayerZ, uint32_t maxLayerZ,
-            bool useIdentityTransform, ISurfaceComposer::Rotation rotation);
-#endif
     virtual status_t getDisplayStats(const sp<IBinder>& display,
             DisplayStatInfo* stats);
     virtual status_t getDisplayConfigs(const sp<IBinder>& display,
@@ -481,15 +472,6 @@ private:
      * Properties
      */
     void readPersistentProperties();
-
-#ifdef USE_MHEAP_SCREENSHOT
-    status_t captureScreenImplCpuConsumerLocked(
-            const sp<const DisplayDevice>& hw,
-            sp<IMemoryHeap>* heap, uint32_t* width, uint32_t* height,
-            Rect sourceCrop, uint32_t reqWidth, uint32_t reqHeight,
-            uint32_t minLayerZ, uint32_t maxLayerZ,
-            bool useIdentityTransform, Transform::orientation_flags rotation);
-#endif
 
     /* ------------------------------------------------------------------------
      * EGL

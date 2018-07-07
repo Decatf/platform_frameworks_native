@@ -26,7 +26,6 @@
 #include <utils/Vector.h>
 
 #include <binder/IInterface.h>
-#include <binder/IMemory.h>
 
 #include <ui/FrameStats.h>
 #include <ui/PixelFormat.h>
@@ -174,18 +173,6 @@ public:
             bool useIdentityTransform,
             Rotation rotation = eRotateNone) = 0;
 
-#ifdef USE_MHEAP_SCREENSHOT
-    /* Capture the specified screen. requires READ_FRAME_BUFFER permission
-     * This function will fail if there is a secure window on screen.
-     */
-    virtual status_t captureScreen(const sp<IBinder>& display, sp<IMemoryHeap>* heap,
-            uint32_t* width, uint32_t* height,
-            Rect sourceCrop, uint32_t reqWidth, uint32_t reqHeight,
-            uint32_t minLayerZ, uint32_t maxLayerZ,
-            bool useIdentityTransform,
-            Rotation rotation = eRotateNone) = 0;
-#endif
-
     /* Clears the frame statistics for animations.
      *
      * Requires the ACCESS_SURFACE_FLINGER permission.
@@ -227,9 +214,6 @@ public:
         SET_TRANSACTION_STATE,
         AUTHENTICATE_SURFACE,
         GET_SUPPORTED_FRAME_TIMESTAMPS,
-#ifdef USE_MHEAP_SCREENSHOT
-        CAPTURE_SCREEN_DEPRECATED,
-#endif
         GET_DISPLAY_CONFIGS,
         GET_ACTIVE_CONFIG,
         SET_ACTIVE_CONFIG,
