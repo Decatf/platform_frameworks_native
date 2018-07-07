@@ -79,10 +79,6 @@ ifeq ($(TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK),true)
     LOCAL_CFLAGS += -DRUNNING_WITHOUT_SYNC_FRAMEWORK
 endif
 
-ifeq ($(BOARD_USE_MHEAP_SCREENSHOT),true)
-    LOCAL_CFLAGS += -DUSE_MHEAP_SCREENSHOT
-endif
-
 # The following two BoardConfig variables define (respectively):
 #
 #   - The phase offset between hardware vsync and when apps are woken up by the
